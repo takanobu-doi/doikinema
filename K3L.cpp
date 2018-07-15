@@ -84,10 +84,10 @@ int main(int argc,char *argv[])
     exit(EXIT_FAILURE);
   }
   for(int i=option;i<argc-1;i++){
-    argv[i] = argv[i+1];
+    argv++;
   }
   argc = argc-1;
-
+  /*
   if(opt[para]==0){
     h_t_u();
     return 0;
@@ -113,6 +113,29 @@ int main(int argc,char *argv[])
     cout << "Please type \"./K3L -h\" or \"./K3L --help\"" << endl;
     return 0;
   }
+  */
+  switch(opt[para]){
+  case 0:
+    h_t_u();
+  case 1:
+    K3L(argc,argv);
+    break;
+  case 2:
+    showparticle();
+    break;
+  case 3:
+    cross(argc,argv);
+    break;
+  case 4:
+    Ex4toEi(argc,argv);
+    break;
+  default:
+    cout << "Illigal format." << endl;
+    cout << "Please type \"./K3L -h\" or \"./K3L --help\"" << endl;
+    break;
+  }
+  
+  return 0;
 }
 
 void h_t_u()
