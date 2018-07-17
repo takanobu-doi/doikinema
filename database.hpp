@@ -12,11 +12,11 @@ class database
 private:
   nucl data[PARTICLE_NUM];
   int part_num;
-  int N;
-  int Z;
   int A;
-  double delta;
+  int Z;
+  int N;
   string name;
+  double delta;
   void inputdata();
   void setdata(int n,int z,string na,double del);
   int det_part(int N,int Z);//determine the nucl. from N,Z

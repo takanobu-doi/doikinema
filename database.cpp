@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <typeinfo>
 #include <fstream>
+#include <algorithm>
 #include "database.hpp"
 #include "nuclear.hpp"
 
@@ -40,7 +41,7 @@ int database::det_part(int A,string ss)
 {
   for(int i=0;i<part_num;i++){
     if(data[i].get_N()+data[i].get_Z()==A
-       && data[i].get_name()==ss){
+       &&data[i].get_name()==ss){
       return i;
     }
   }
@@ -73,6 +74,7 @@ int database::read_stdin()
       for(double keta=1;keta<=A;keta=keta*10){
 	name.erase(name.begin());
       }
+      transform(name.begin(),name.begin()+1,name.begin(),::toupper);
     }
   }else{
     cout << "Illigal forlmat." << endl;
@@ -104,6 +106,7 @@ int database::read_comd(char *n)
     for(double keta=1;keta<=A;keta=keta*10){
       name.erase(name.begin());
     }
+    transform(name.begin(),name.begin()+1,name.begin(),::toupper);
   }
   return 0;
 }

@@ -9,7 +9,7 @@ using namespace std;
 
 class nucl
 {
-private:
+protected:
   int N;
   int Z;
   string name;//nucl. name
