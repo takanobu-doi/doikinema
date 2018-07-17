@@ -83,9 +83,11 @@ int main(int argc,char *argv[])
     cout << "Please type \"./K3L -h\" or \"./K3L --help\"" << endl;
     exit(EXIT_FAILURE);
   }
+  /*
   for(int i=option;i<argc-1;i++){
-    argv++;
-  }
+    argv[i]=argv[i+1];
+    }*/
+  argv++;
   argc = argc-1;
   /*
   if(opt[para]==0){
