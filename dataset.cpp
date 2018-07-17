@@ -8,6 +8,7 @@ void database::inputdata()
   
   //******set data here*******//
 
+  setdata(0,0,"r",0.);
   setdata(1,0,"n",8.07132);
   setdata(0,1,"p",6.77799);
   setdata(1,1,"d",13.1357);

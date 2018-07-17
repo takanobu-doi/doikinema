@@ -65,7 +65,9 @@ int database::read_stdin()
 	A = 2;
       }else if(name=="t"){
 	A = 3;
-      }else{
+      }else/* if(name=="r"){
+	A = 0;
+	}else*/{
 	cout << "Illigal input format." << endl;
 	return 1;
       }
