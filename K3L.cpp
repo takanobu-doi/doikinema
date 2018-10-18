@@ -166,13 +166,16 @@ void K3L(int argc,char *argv[])
   while(1){
     if(a.calc()==0){
       if(first==0){
-	cout << "#" << " Th3L(deg) |" << " Ex4(MeV) |" << " Th3C(deg) |";
+	cout << "#" << " Th3L(deg) |" << " Ex4(MeV) |" << " Ex3(MeV) |";
+	cout << " Th3C(deg) |" << " Th4L(deg) |";
 	cout << " K3L(MeV) |" << " P3L(MeV) |" << endl;
 	first = 1;
       }
       cout << " " << setw(10) << right << a.getthr3() << "  ";
       cout << setw(9) << a.getEx2() << "  ";
+      cout << setw(9) << a.getEx1() << " ";
       cout << setw(10) << a.getthr3_C() << "  ";
+      cout << setw(10) << a.getthr4() << "  ";
       cout << setw(9) << right << a.getE_L(2) << "  ";
       cout << setw(9) << a.getp() << "  ";
       cout << endl;
