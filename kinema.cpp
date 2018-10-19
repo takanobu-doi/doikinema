@@ -93,47 +93,6 @@ int kinema::ex4toei()
   }
 }
 
-double kinema::getthr3_C()
-{
-  double M,E0,thr_c,gamma;
-  gamma = pow(1-beta_c*beta_c,-0.5);
-  M = sqrt(pow(p[0].get_mass(),2)+pow(p[1].get_mass(),2)+2*p[1].get_E()*p[0].get_E());
-  E0 = (M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M);
-  /*
-  if(thr==0){
-    return 0.;
-    }
-  thr_c = atan((sqrt(1-beta_c*beta_c)*p*cos(M_PI*thr/180.)-(E0*beta_c))/p*sin(M_PI*thr/180.))*180/M_PI;
-  */
-  thr_c = atan(sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2))*sin(thr*M_PI/180.)/(-beta_c*gamma*(p[2].get_E())+gamma*sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2))*cos(thr*M_PI/180.)))*180./M_PI;
-  if(thr_c>=0){
-    return thr_c;
-  }else{
-    return thr_c+180.;
-  }
-}
-
-double kinema::getthr3_max()
-{
-  double theta,M;
-
-  M = sqrt(pow(p[0].get_mass(),2)+pow(p[1].get_mass(),2)+2*p[1].get_E()*p[0].get_E());
-  if(p[0].get_mass()==p[1].get_mass()&&
-     p[1].get_mass()==p[2].get_mass()&&
-     p[2].get_mass()==p[3].get_mass()){
-    return 90.;
-  }
-  if(beta_c*(M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M)<p0){
-    return 180.;
-  }
-  theta = asin(p0*sqrt(1-beta_c*beta_c)/(p[2].get_mass()*beta_c))*180./M_PI;
-  if(theta>=0){
-    return theta;
-  }else{
-    return -theta;
-  }
-}
-
 double kinema::get_gfactor()
 {
   double u_cm,gamma,E0;
@@ -208,34 +167,41 @@ void kinema::showparticles()
   }
 }
 
-void kinema::setparameter(double E_inc,double thr_L,double ex)
+void kinema::setparameter(double E_inc,double thr_L,double ex3,double ex4)
 {
-  Ex2 = ex;
+  Ex1 = ex3;
+  Ex2 = ex4;
   thr = thr_L;
   p[0].set_E(E_inc);
   p[1].set_E(0);
+  p[2].set_Ex(Ex1);
   p[3].set_Ex(Ex2);
   beta_c = sqrt(p[0].get_E()*p[0].get_E()-p[0].get_mass()*p[0].get_mass())/(p[0].get_E()+p[1].get_E());
 }
 
 void kinema::setparameter(double E)
 {
-  double thr,Ex;
+  double thr,ex3,ex4;
   char s1[100];
   int i;
   //  cout << "thr_L Ex4" << endl;
   //  cin >> thr >> Ex;
   fgets(s1,100,stdin);
-  i = sscanf(s1,"%lf %lf",&thr,&Ex);
+  i = sscanf(s1,"%lf %lf %lf",&thr,&ex4,&ex3);
   if(i==1){
-    Ex = 0;
-    i = 2;
+    ex3 = 0;
+    ex4 = 0;
+    i = 3;
   }
-  if(i!=2){
+  else if(i==2){
+    ex3 = 0;
+    i = 3;
+  }
+  if(i!=3){
     cout << "Illigal format." << endl;
     exit(EXIT_SUCCESS);
   }
-  setparameter(E,thr,Ex);
+  setparameter(E,thr,ex3,ex4);
 }
 
 void kinema::setparameter()
@@ -280,6 +246,73 @@ double kinema::getthr3()
   return thr;
 }
 
+double kinema::getthr3_C()
+{
+  double M,E0,thr_c,gamma;
+  gamma = pow(1-beta_c*beta_c,-0.5);
+  M = sqrt(pow(p[0].get_mass(),2)+pow(p[1].get_mass(),2)+2*p[1].get_E()*p[0].get_E());
+  E0 = (M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M);
+  /*
+  if(thr==0){
+    return 0.;
+    }
+  thr_c = atan((sqrt(1-beta_c*beta_c)*p*cos(M_PI*thr/180.)-(E0*beta_c))/p*sin(M_PI*thr/180.))*180/M_PI;
+  */
+  thr_c = atan(sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2))*sin(thr*M_PI/180.)/(-beta_c*gamma*(p[2].get_E())+gamma*sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2))*cos(thr*M_PI/180.)))*180./M_PI;
+  if(thr_c>=0){
+    return thr_c;
+  }else{
+    return thr_c+180.;
+  }
+}
+
+double kinema::getthr3_max()
+{
+  double theta,M;
+
+  M = sqrt(pow(p[0].get_mass(),2)+pow(p[1].get_mass(),2)+2*p[1].get_E()*p[0].get_E());
+  if(p[0].get_mass()==p[1].get_mass()&&
+     p[1].get_mass()==p[2].get_mass()&&
+     p[2].get_mass()==p[3].get_mass()){
+    return 90.;
+  }
+  if(beta_c*(M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M)<p0){
+    return 180.;
+  }
+  theta = asin(p0*sqrt(1-beta_c*beta_c)/(p[2].get_mass()*beta_c))*180./M_PI;
+  if(theta>=0){
+    return theta;
+  }else{
+    return -theta;
+  }
+}
+
+double kinema::getthr4()
+{
+  double momentum[4] = {0,0,0,0};
+  double cos_psi,sin_psi,tan_psi,cot_psi;
+  double psi;
+  /*
+  for(int i=0;i<4;i++){
+    momentum[i] = sqrt(pow(p[i].get_E(),2)-pow(p[i].get_mass(),2));
+  }
+  sin_psi = momentum[2]*sin(thr*M_PI/180.)/momentum[3];
+  psi = asin(sin_psi)*180./M_PI;
+  */
+  double p1,p3;
+  p1 = sqrt(pow(p[0].get_E(),2)-pow(p[0].get_mass(),2));
+  p3 = sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2));
+  cot_psi = (p1-p3*cos(thr*M_PI/180.))/(p3*sin(thr*M_PI/180.));
+  psi = 90-atan(cot_psi)*180./M_PI;
+  
+  return psi;
+}
+
+double kinema::getEx1()
+{
+  return Ex1;
+}
+
 double kinema::getEx2()
 {
   return Ex2;
@@ -290,12 +323,12 @@ double kinema::getmass(int i)
   return p[i].get_mass();
 }
 
-double kinema::Qvalue()
-{
-  return p[0].get_delta()+p[1].get_delta()-p[2].get_delta()-p[3].get_delta();
-}
-
 double kinema::getp()
 {
   return P;
+}
+
+double kinema::Qvalue()
+{
+  return p[0].get_delta()+p[1].get_delta()-p[2].get_delta()-p[3].get_delta();
 }
