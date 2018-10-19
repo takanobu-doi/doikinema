@@ -290,7 +290,7 @@ double kinema::getthr3_max()
 double kinema::getthr4()
 {
   double momentum[4] = {0,0,0,0};
-  double cos_psi,sin_psi,tan_psi;
+  double cos_psi,sin_psi,tan_psi,cot_psi;
   double psi;
   /*
   for(int i=0;i<4;i++){
@@ -302,8 +302,8 @@ double kinema::getthr4()
   double p1,p3;
   p1 = sqrt(pow(p[0].get_E(),2)-pow(p[0].get_mass(),2));
   p3 = sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2));
-  tan_psi = (p3*sin(thr*M_PI/180.))/(p1-p3*cos(thr*M_PI/180.));
-  psi = atan(tan_psi)*180./M_PI;
+  cot_psi = (p1-p3*cos(thr*M_PI/180.))/(p3*sin(thr*M_PI/180.));
+  psi = 90-atan(cot_psi)*180./M_PI;
   
   return psi;
 }
