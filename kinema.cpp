@@ -38,6 +38,39 @@ int kinema::calc()
   c = E0*E0*(1-beta_c*beta_c)+pow(beta_c*p[2].get_mass()*cos(M_PI*thr/180.),2);
 
   if(thr<90.){
+    p[2].set_E((-b+sqrt(fabs(b*b-4*a*c)))/(2*a)-p[2].get_mass());
+  }else{
+    p[2].set_E((-b-sqrt(fabs(b*b-4*a*c)))/(2*a)-p[2].get_mass());
+  }
+  P = sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2));
+  p0 = sqrt(pow((M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M),2)-pow(p[2].get_mass(),2));
+
+  p[3].set_E(sqrt(pow(p[3].get_mass(),2)+pow((p0*cos(M_PI*getthr3_C()/180.)+(M*M+pow(p[3].get_mass(),2)-pow(p[2].get_mass(),2))/(2*M)*beta_c)/sqrt(1-beta_c*beta_c),2)+pow(p0*sin(M_PI*getthr3_C()/180.),2)));
+
+  
+  if(getthr3()>getthr3_max()){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+int kinema::calc(double E_inc,double thr_L,double ex3,double ex4)
+{
+  double a,b,c;
+  double M;
+  double E0;
+
+  setparameter(E_inc,thr_L,ex3,ex4);
+
+  M = sqrt(pow(p[0].get_mass(),2)+pow(p[1].get_mass(),2)+2*p[1].get_E()*p[0].get_E());
+  E0 = (M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M);
+
+  a = 1-pow(beta_c*cos(M_PI*thr/180.),2);
+  b = -2*E0*sqrt(1-beta_c*beta_c);
+  c = E0*E0*(1-beta_c*beta_c)+pow(beta_c*p[2].get_mass()*cos(M_PI*thr/180.),2);
+
+  if(thr<90.){
     p[2].set_E((-b+sqrt(b*b-4*a*c))/(2*a)-p[2].get_mass());
   }else{
     p[2].set_E((-b-sqrt(b*b-4*a*c))/(2*a)-p[2].get_mass());

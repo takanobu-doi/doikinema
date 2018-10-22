@@ -33,6 +33,7 @@ public:
   void setparameter(double,double,double,double);//E_inc,thr_L,Ex
   void showparameter();
   int calc();
+  int calc(double E_inc,double thr_L,double ex3,double ex4);
   int ex4toei();
   double get_gfactor();
   double getE_L(int);
