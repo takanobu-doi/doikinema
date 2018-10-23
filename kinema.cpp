@@ -45,7 +45,8 @@ int kinema::calc()
   P = sqrt(pow(p[2].get_E(),2)-pow(p[2].get_mass(),2));
   p0 = sqrt(pow((M*M+pow(p[2].get_mass(),2)-pow(p[3].get_mass(),2))/(2*M),2)-pow(p[2].get_mass(),2));
 
-  p[3].set_E(sqrt(pow(p[3].get_mass(),2)+pow((p0*cos(M_PI*getthr3_C()/180.)+(M*M+pow(p[3].get_mass(),2)-pow(p[2].get_mass(),2))/(2*M)*beta_c)/sqrt(1-beta_c*beta_c),2)+pow(p0*sin(M_PI*getthr3_C()/180.),2)));
+  //  p[3].set_E(sqrt(pow(p[3].get_mass(),2)+pow((p0*cos(M_PI*getthr3_C()/180.)+(M*M+pow(p[3].get_mass(),2)-pow(p[2].get_mass(),2))/(2*M)*beta_c)/sqrt(1-beta_c*beta_c),2)+pow(p0*sin(M_PI*getthr3_C()/180.),2))-p[3].get_mass());
+  p[3].set_E(sqrt(pow(p[3].get_mass(),2)+pow(p0,2))/sqrt(1-pow(beta_c,2))-p0*cos(getthr3_C()*M_PI/180.)*beta_c/sqrt(1-pow(beta_c,2))-p[3].get_mass());
 
   
   if(getthr3()>getthr3_max()){

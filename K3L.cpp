@@ -168,7 +168,7 @@ void K3L(int argc,char *argv[])
       if(first==0){
 	cout << "#" << " Th3L(deg) |" << " Ex4(MeV) |" << " Ex3(MeV) |";
 	cout << " Th3C(deg) |" << " Th4L(deg) |";
-	cout << " K3L(MeV) |" << " P3L(MeV) |" << endl;
+	cout << " K3L(MeV) |" << " P3L(MeV) |" << " K4L(MeV) |"<< endl;
 	first = 1;
       }
       cout << " " << setw(10) << right << a.getthr3() << "  ";
@@ -178,6 +178,7 @@ void K3L(int argc,char *argv[])
       cout << setw(10) << a.getthr4() << "  ";
       cout << setw(9) << right << a.getE_L(2) << "  ";
       cout << setw(9) << a.getp() << "  ";
+      cout << setw(9) << a.getE_L(3) << " ";
       cout << endl;
     }else{
       cout << "thr_max = " << a.getthr3_max() << endl;
