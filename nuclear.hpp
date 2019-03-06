@@ -3,7 +3,9 @@
 
 #include <string>
 
-#define amu 931.494013
+const double amu = 931.478;
+//const double M_Z = 938.2720813;
+//const double M_N = 939.5654133;
 
 using namespace std;
 
